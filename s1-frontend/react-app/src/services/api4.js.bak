@@ -1,0 +1,156 @@
+const COURSES_API_URL = 'http://localhost:5001';  // AI LMS Backend
+const SCHOOLS_API_URL = 'http://localhost:5000';  // MongoDB Backend
+
+class ApiService {
+  // ========== AUTHENTICATION (Port 5001) ==========
+  static async register(userData) {
+    try {
+      const response = await fetch(`${COURSES_API_URL}/api/register`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(userData)
+      });
+      return await response.json();
+    } catch (error) {
+      console.error('Registration error:', error);
+      return { success: false, error: 'Connection failed' };
+    }
+  }
+
+  static async login(credentials) {
+    try {
+      const response = await fetch(`${COURSES_API_URL}/api/login`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(credentials)
+      });
+      return await response.json();
+    } catch (error) {
+      console.error('Login error:', error);
+      return { success: false, error: 'Connection failed' };
+    }
+  }
+
+  // ========== COURSES (Port 5001) ==========
+  static async getCourses() {
+    try {
+      const response = await fetch(`${COURSES_API_URL}/courses`);
+      const data = await response.json();
+      return data.success ? data.data : [];
+    } catch (error) {
+      console.error('Error fetching courses:', error);
+      // Fallback to sample data
+      return [
+        { id: 1, name: 'React for Beginners', description: 'Learn React fundamentals', level: 'Beginner' },
+        { id: 2, name: 'Data Science', description: 'Master data analysis', level: 'Intermediate' },
+        { id: 3, name: 'AI Fundamentals', description: 'Understand AI and ML', level: 'Advanced' }
+      ];
+    }
+  }
+
+  static async getCourseById(id) {
+    try {
+      const response = await fetch(`${COURSES_API_URL}/courses/${id}`);
+      const data = await response.json();
+      return data.success ? data.data : null;
+    } catch (error) {
+      console.error('Error fetching course:', error);
+      return null;
+    }
+  }
+
+  static async enrollCourse(userId, courseId) {
+    try {
+      const response = await fetch(`${COURSES_API_URL}/enroll`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ userId, courseId })
+      });
+      return await response.json();
+    } catch (error) {
+      console.error('Error enrolling:', error);
+      return { success: false, error: 'Enrollment failed' };
+    }
+  }
+
+  static async updateProgress(userId, courseId, progress) {
+    try {
+      const response = await fetch(`${COURSES_API_URL}/progress`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ userId, courseId, progress })
+      });
+      return await response.json();
+    } catch (error) {
+      console.error('Error updating progress:', error);
+      return { success: false, error: 'Update failed' };
+    }
+  }
+
+  // ========== AI RECOMMENDATIONS (Port 5001) ==========
+  static async getRecommendations(interest, level = 'beginner') {
+    try {
+      const response = await fetch(
+        `${COURSES_API_URL}/recommend?interest=${encodeURIComponent(interest)}&level=${level}`
+      );
+      const data = await response.json();
+      return data.success ? data.data : { recommendations: [] };
+    } catch (error) {
+      console.error('Error getting recommendations:', error);
+      return { recommendations: [] };
+    }
+  }
+
+  // ========== SCHOOLS (Port 5000) ==========
+  static async getSchools() {
+    try {
+      const response = await fetch(`${SCHOOLS_API_URL}/api/schools`);
+      const data = await response.json();
+      return data.success ? data.data : [];
+    } catch (error) {
+      console.error('Error fetching schools:', error);
+      return [];
+    }
+  }
+
+  static async addSchool(schoolData) {
+    try {
+      const response = await fetch(`${SCHOOLS_API_URL}/api/schools`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(schoolData)
+      });
+      return await response.json();
+    } catch (error) {
+      console.error('Error adding school:', error);
+      return { success: false, error: 'Failed to add school' };
+    }
+  }
+
+  // ========== TEST CONNECTIONS ==========
+  static async testConnections() {
+    const results = {};
+    
+    try {
+      const coursesResponse = await fetch(`${COURSES_API_URL}/`);
+      results.coursesBackend = coursesResponse.ok;
+    } catch {
+      results.coursesBackend = false;
+    }
+    
+    try {
+      const schoolsResponse = await fetch(`${SCHOOLS_API_URL}/`);
+      results.schoolsBackend = schoolsResponse.ok;
+    } catch {
+      results.schoolsBackend = false;
+    }
+    
+    return results;
+  }
+}
+
+
+
+
+
+export default ApiService;

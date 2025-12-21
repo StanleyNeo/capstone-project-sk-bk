@@ -1,0 +1,46 @@
+# Setup React App
+cd S1-FRONTEND/React-App
+npm install
+npm start
+
+# Setup Express Backend
+cd ../../S2-BACKEND
+npm install
+npm start
+
+# Setup MongoDB Backend
+cd S3-DATABASE/MongoDB-Backend
+npm install
+npm start
+
+
+
+Terminal 1 - MongoDB Backend: bash
+cd cg-capstone-project/capstone-project-sk
+cd qw-capstone-project/capstone-project-sk
+cd s3-database/MongoDB-Backend
+node final-server.js
+npm start
+
+Terminal 2 - Express Backend: bash
+cd cg-capstone-project/capstone-project-sk
+cd qw-capstone-project/capstone-project-sk
+cd s2-backend
+node final-ai-server.js
+npm start
+
+Terminal 3 - React Frontend: bash
+cd cg-capstone-project/capstone-project-sk
+cd qw-capstone-project/capstone-project-sk
+cd s1-frontend/react-app
+npm start
+
+
+https://platform.openai.com/api-keys
+
+https://aistudio.google.com/app/api-keys
+
+https://platform.deepseek.com/usage
+
+https://platform.deepseek.com/api_keys
+

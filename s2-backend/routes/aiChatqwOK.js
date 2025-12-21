@@ -1,0 +1,55 @@
+// s2-backend/routes/aiChat.js
+const express = require('express');
+const router = express.Router();
+const FinalAIService = require('../services/FinalAIService'); // ✅ Use working service
+
+// Chat endpoint
+router.post('/chat', async (req, res) => {
+  try {
+    const { message = '', provider = 'auto' } = req.body;
+    if (!message || typeof message !== 'string') {
+      return res.status(400).json({ success: false, error: 'Valid message required' });
+    }
+
+    // ✅ Use FINAL AI SERVICE (DeepSeek → Gemini → OpenAI)
+    const aiResponse = await FinalAIService.queryAI(message,
+      "You are Athena, a helpful AI tutor. Respond concisely and educationally. Mention courses like 'Python Programming' when relevant."
+    );
+
+    res.json({
+      success: true,
+      response: aiResponse,
+      provider: provider || 'hybrid',
+      timestamp: new Date().toISOString()
+    });
+  } catch (error) {
+    console.error('❌ aiChat error:', error.message);
+    // Fallback — but now at least it won’t crash
+    res.json({
+      success: true,
+      response: `👋 Hello! I'm Athena. Ask me about React, Python, or our courses!`,
+      provider: 'fallback'
+    });
+  }
+});
+
+// Health check
+router.get('/health', (req, res) => {
+  res.json({ success: true, status: 'operational', service: 'aiChat (FinalAIService)' });
+});
+
+// Stats endpoint — ✅ NOW WORKS
+router.get('/stats', (req, res) => {
+  try {
+    const stats = FinalAIService.getStats();
+    res.json(stats);
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      error: 'Stats unavailable',
+      note: error.message
+    });
+  }
+});
+
+module.exports = router;
