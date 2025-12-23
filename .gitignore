@@ -1,0 +1,166 @@
+# ============================================
+# CAPSTONE PROJECT - AI LMS SYSTEM
+# ============================================
+
+# 🌟 GENERAL
+*.log
+*.tmp
+*.temp
+*.pid
+*.seed
+*.pid.lock
+.DS_Store
+*.DS_Store
+Thumbs.db
+desktop.ini
+
+# 🚀 NODE.JS
+# Dependencies
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnp/
+.pnp.js
+package-lock.json
+yarn.lock
+
+# Runtime data
+pids
+*.pid
+*.seed
+*.pid.lock
+
+# Coverage directory used by tools like istanbul
+coverage/
+.nyc_output
+
+# 🎨 REACT / FRONTEND (s1-frontend/react-app/)
+# Build output
+s1-frontend/react-app/build/
+s1-frontend/react-app/dist/
+s1-frontend/react-app/.next/
+s1-frontend/react-app/out/
+
+# Production cache
+.sass-cache/
+.stylelintcache
+
+# Misc
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+.eslintcache
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# 🖥️ BACKEND (s2-backend/)
+# Environment variables
+s2-backend/.env
+s2-backend/config.env
+
+# Logs
+s2-backend/logs/
+s2-backend/*.log
+
+# Uploads
+s2-backend/uploads/
+s2-backend/temp/
+
+# Database
+s2-backend/data/
+s2-backend/*.db
+s2-backend/*.sqlite
+s2-backend/*.sqlite3
+
+# 🗄️ DATABASE BACKEND (s3-database/)
+s3-database/MongoDB-Backend/.env
+s3-database/MongoDB-Backend/logs/
+s3-database/MongoDB-Backend/data/
+
+# 📊 MONGODB
+# MongoDB data directory
+data/db/
+*.ns
+*.0
+*.1
+mongod.lock
+WiredTiger*
+mongo.log
+
+# 🔐 ENVIRONMENT VARIABLES (ALL FOLDERS)
+# NEVER COMMIT THESE!
+.env
+.env.*
+!.env.example  # Keep example file
+
+# API Keys & Secrets
+*.key
+*.pem
+*.crt
+config.js
+secrets.js
+credentials.json
+service-account.json
+firebase.json
+
+# 🐳 DOCKER
+docker-compose.yml.dev
+docker-compose.override.yml
+.dockerignore
+docker-compose.prod.yml
+
+# 🧪 TESTING
+.nyc_output/
+test-results/
+reports/
+*.lcov
+
+# 📦 DEPLOYMENT
+.cache/
+.vercel/
+.netlify/
+.elasticbeanstalk/
+.ebextensions/
+.serverless/
+
+# 📱 REACT NATIVE / EXPO
+.expo/
+web-build/
+
+# 🎭 OPERATING SYSTEM
+# Windows
+[Tt]humbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+*.stackdump
+
+# Linux
+*~
+.fuse_hidden*
+.directory
+.Trash-*
+.nfs*
+
+# Mac
+.AppleDouble
+.LSOverride
+.Spotlight-V100
+.Trashes
+
+# 🛠️ BUILD TOOLS
+*.tgz
+*.tar.gz
+*.zip
+*.rar
+
+# 🔍 DEBUG
+debug/
+*.debug
