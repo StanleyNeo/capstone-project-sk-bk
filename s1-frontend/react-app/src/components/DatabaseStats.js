@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import ApiService from '../services/api';
+import config from './config';
 
+axios.get(`${config.apiBaseUrl}/api/schools`)
 function DatabaseStats() {
   const [stats, setStats] = useState({
     users: 0,

@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
+import config from './config';
 
+axios.get(`${config.apiBaseUrl}/api/schools`)
 function CourseToggle() {
   const [courses, setCourses] = useState([
     { id: 1, name: 'React Basics', instructor: 'Sarah Johnson', enrolled: false },
