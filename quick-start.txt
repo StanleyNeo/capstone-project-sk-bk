@@ -73,8 +73,11 @@ tree /f | findstr /v node_modules > project-structure2.txt
 
 tree /f | findstr /v /i "node_modules package-lock.json" > project-structure.txt
 
+git remote add origin https://github.com/StanleyNeo/capstone-project-sk-bk.git
 
-git remote set-url origin https://github.com/StanleyNeo/capstone-project-sk
+git remote set-url origin https://github.com/StanleyNeo/capstone-project-sk-bk
+
+https://github.com/StanleyNeo/capstone-project-sk-bk
 
 cd s2-backend/routes
 mv hybridAiRoutes.js hybridAIRoutes.js
