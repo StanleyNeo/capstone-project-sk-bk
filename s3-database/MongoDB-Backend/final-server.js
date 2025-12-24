@@ -3,6 +3,7 @@ const mongoose = require('mongoose');
 const cors = require('cors');
 const app = express();
 const PORT = 5000;
+const mongoUri = process.env.MONGO_URI || "mongodb://127.0.0.1:27017/lms_analytics";
 
 // ========== ✅ MIDDLEWARE ==========
 app.use(cors({
@@ -14,14 +15,22 @@ app.use(cors({
 app.use(express.json());
 
 // ========== ✅ MONGODB CONNECTION ==========
-mongoose.connect('mongodb://localhost:27017/lms_analytics', {
+mongoose.connect(mongoUri, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
   serverSelectionTimeoutMS: 5000
 });
+
 const db = mongoose.connection;
-db.on('error', () => console.log('⚠️ MongoDB not available - using in-memory data'));
-db.once('open', () => console.log('✅ MongoDB connected to lms_analytics'));
+
+db.on('error', (err) => {
+  console.log('⚠️ MongoDB connection failed:', err.message);
+  console.log('⚠️ Using in-memory data instead');
+});
+
+db.once('open', () => {
+  console.log(`✅ MongoDB connected to ${mongoUri}`);
+});
 
 // ========== ✅ SCHEMAS ==========
 const schoolSchema = new mongoose.Schema({
