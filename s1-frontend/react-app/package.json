@@ -2,6 +2,7 @@
   "name": "ai-lms-react",
   "version": "0.1.0",
   "private": true,
+  "proxy": "http://localhost:5000",  
   "dependencies": {
     "@fortawesome/fontawesome-free": "^7.1.0",
     "axios": "^1.13.2",
@@ -10,8 +11,7 @@
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.20.0",
-    "react-scripts": "5.0.1",
-     "proxy": "http://localhost:5000"
+    "react-scripts": "5.0.1"
   },
   "scripts": {
     "start": "react-scripts start",
