@@ -1,6 +1,6 @@
 const AI_BACKEND_URL = process.env.REACT_APP_AI_BACKEND_URL || 'http://localhost:5001';
 const MONGO_BACKEND_URL = process.env.REACT_APP_MONGO_BACKEND_URL || 'http://localhost:5000';
-const API_BASE = 'http://localhost:5000/api';
+const API_BASE = MONGO_BACKEND_URL + '/api'; 
 class ApiService {
   // ========== AUTHENTICATION (Port 5001) ==========
   static async register(userData) {

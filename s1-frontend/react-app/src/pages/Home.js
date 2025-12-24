@@ -1,3 +1,9 @@
+// API Configuration - Using environment variables
+const AI_BACKEND_URL = process.env.REACT_APP_AI_BACKEND_URL || 'http://localhost:5001';
+const MONGO_BACKEND_URL = process.env.REACT_APP_MONGO_BACKEND_URL || 'http://localhost:5000';
+const API_BASE = MONGO_BACKEND_URL + '/api' || 'http://localhost:5000/api';
+
+
 import React, { useState, useEffect } from 'react';
 import PasswordStrength from '../components/PasswordStrength';
 import CourseToggle from '../components/CourseToggle';

@@ -9,12 +9,33 @@ const hybridAIRoutes = require('./routes/hybridAIRoutes');
 const recommendationRoutes = require('./routes/recommendationRoutes');
 
 // ========== ✅ MIDDLEWARE ==========
+// Configure CORS dynamically for both development and production
+const allowedOrigins = process.env.CORS_ORIGINS 
+  ? process.env.CORS_ORIGINS.split(',') 
+  : [
+      'http://localhost:3000',
+      'http://127.0.0.1:3000', 
+      'http://localhost:3001',
+      'https://capstone-project-sk-bk.vercel.app',
+      'https://capstone-project-sk-bk-git-main-neo-see-kwees-projects.vercel.app'
+    ];
+
 app.use(cors({
-  origin: ['http://localhost:3000', 'http://127.0.0.1:3000', 'http://localhost:3001'],
+  origin: function (origin, callback) {
+    // Allow requests with no origin (like mobile apps or curl requests)
+    if (!origin) return callback(null, true);
+    
+    if (allowedOrigins.indexOf(origin) === -1) {
+      const msg = 'The CORS policy for this site does not allow access from the specified Origin.';
+      return callback(new Error(msg), false);
+    }
+    return callback(null, true);
+  },
   credentials: true,
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization', 'Accept']
 }));
+
 app.use(express.json());
 
 // ========== ✅ ROUTE REGISTRATION (ORDER MATTERS!) ==========
