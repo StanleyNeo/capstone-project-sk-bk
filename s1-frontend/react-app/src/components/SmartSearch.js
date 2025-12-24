@@ -1,6 +1,10 @@
 import React, { useState, useEffect, useRef } from 'react';
 import './SmartSearch.css'; // We'll create this CSS file
-const BASE_URL = 'http://localhost:5001/api/ai'; // Changed from port 5000
+import ApiService from '../services/api'; // Add this import
+
+// ✅ Use environment variables instead of hardcoded localhost
+const BASE_URL = process.env.REACT_APP_AI_BACKEND_URL || 'http://localhost:5001';
+
 function SmartSearch() {
   const [query, setQuery] = useState('');
   const [results, setResults] = useState([]);
@@ -53,130 +57,118 @@ function SmartSearch() {
     localStorage.setItem('smartSearchHistory', JSON.stringify(newHistory));
   };
 
-  // Get search suggestions
-const fetchSuggestions = async (queryText) => {
-  if (queryText.length < 2) {
-    setSuggestions([]);
-    return;
-  }
+  // Get search suggestions - FIXED
+  const fetchSuggestions = async (queryText) => {
+    if (queryText.length < 2) {
+      setSuggestions([]);
+      return;
+    }
 
-  try {
-    // Use the search endpoint for suggestions
-    const response = await fetch(`${BASE_URL}/search`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ query: queryText })
-    });
-    
-    const data = await response.json();
-    
-    if (data.success && data.results) {
-      const suggestions = data.results
-        .slice(0, 5)
-        .map(course => course.title);
+    try {
+      // ✅ Use MongoDB backend for course suggestions (port 5000)
+      const MONGO_BACKEND_URL = process.env.REACT_APP_MONGO_BACKEND_URL || 'http://localhost:5000';
+      const response = await fetch(`${MONGO_BACKEND_URL}/api/search/suggestions?q=${encodeURIComponent(queryText)}`);
       
-      setSuggestions([...new Set(suggestions)]);
-      setShowSuggestions(true);
+      const data = await response.json();
+      
+      if (data.success && data.suggestions) {
+        setSuggestions(data.suggestions.slice(0, 5));
+        setShowSuggestions(true);
+      }
+    } catch (error) {
+      console.error('Failed to fetch suggestions:', error);
     }
-  } catch (error) {
-    console.error('Failed to fetch suggestions:', error);
-  }
-};
+  };
 
-  // Handle search
-// Handle search - REPLACE THE ENTIRE FUNCTION WITH THIS:
-const handleSearch = async (searchQuery = query) => {
-  if (!searchQuery.trim()) return;
+  // Handle search - COMPLETELY UPDATED
+  const handleSearch = async (searchQuery = query) => {
+    if (!searchQuery.trim()) return;
 
-  setLoading(true);
-  setError(null);
-  setShowSuggestions(false);
-  setInsights(null);
+    setLoading(true);
+    setError(null);
+    setShowSuggestions(false);
+    setInsights(null);
 
-  try {
-    let response;
-    
-    if (searchType === 'enhanced') {
-      // Use AI recommendation for enhanced search
-      response = await fetch(`${BASE_URL}/recommend`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ 
-          interest: searchQuery, 
-          level: 'all',
-          context: 'enhanced_search' 
-        })
-      });
-    } else if (searchType === 'smart') {
-      // Use AI search
-      response = await fetch(`${BASE_URL}/search`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ query: searchQuery })
-      });
-    } else {
-      // Basic keyword search
-      response = await fetch(`${BASE_URL}/search`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ query: searchQuery })
-      });
-    }
-    
-    const data = await response.json();
-    
-    if (data.success) {
-      // Enhanced search returns recommendations, others return results
-      let results = [];
+    try {
+      let data;
       
       if (searchType === 'enhanced') {
-        results = data.recommendations || data.courses || [];
+        // ✅ Use MongoDB backend for enhanced search
+        const MONGO_BACKEND_URL = process.env.REACT_APP_MONGO_BACKEND_URL || 'http://localhost:5000';
+        const response = await fetch(`${MONGO_BACKEND_URL}/api/search/enhanced`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ query: searchQuery })
+        });
+        data = await response.json();
+        
+      } else if (searchType === 'smart') {
+        // ✅ Use MongoDB backend for smart search
+        const MONGO_BACKEND_URL = process.env.REACT_APP_MONGO_BACKEND_URL || 'http://localhost:5000';
+        const response = await fetch(`${MONGO_BACKEND_URL}/api/search/smart`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ query: searchQuery })
+        });
+        data = await response.json();
+        
       } else {
-        results = data.results || data.courses || [];
+        // ✅ Use MongoDB backend for keyword search
+        const MONGO_BACKEND_URL = process.env.REACT_APP_MONGO_BACKEND_URL || 'http://localhost:5000';
+        const response = await fetch(`${MONGO_BACKEND_URL}/api/search/basic`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ query: searchQuery })
+        });
+        data = await response.json();
       }
       
-      // Ensure all results have required fields
-      results = results.map(course => ({
-        _id: course.id || course._id || Math.random().toString(),
-        title: course.title || 'Untitled Course',
-        description: course.description || 'No description available',
-        category: course.category || 'Uncategorized',
-        level: course.level || 'Beginner',
-        instructor: course.instructor || 'Unknown',
-        duration: course.duration || 'N/A',
-        rating: course.rating || 0,
-        enrolledStudents: course.enrolledStudents || 0,
-        relevanceScore: course.relevanceScore || 0,
-        matchReasons: course.whyRecommended ? [course.whyRecommended] : []
-      }));
-      
-      setResults(results);
-      
-      // Generate insights
-      if (results.length > 0) {
-        const insights = {
-          averageScore: Math.round(results.reduce((sum, c) => sum + (c.relevanceScore || 0), 0) / results.length),
-          categoriesFound: [...new Set(results.map(c => c.category))],
-          matchedPatterns: results.slice(0, 3).map(c => c.category),
-          topCategory: results[0]?.category,
-          totalCourses: results.length
-        };
-        setInsights(insights);
+      if (data.success) {
+        // Process results
+        let results = data.results || [];
+        
+        // Ensure all results have required fields
+        results = results.map(course => ({
+          _id: course._id || course.id || Math.random().toString(),
+          title: course.title || 'Untitled Course',
+          description: course.description || 'No description available',
+          category: course.category || 'Uncategorized',
+          level: course.level || 'Beginner',
+          instructor: course.instructor || 'Unknown',
+          duration: course.duration || 'N/A',
+          rating: course.rating || 0,
+          enrolledStudents: course.enrolledStudents || 0,
+          relevanceScore: course.relevanceScore || 0,
+          matchReasons: course.whyRecommended ? [course.whyRecommended] : []
+        }));
+        
+        setResults(results);
+        
+        // Generate insights
+        if (results.length > 0) {
+          const insights = {
+            averageScore: Math.round(results.reduce((sum, c) => sum + (c.relevanceScore || 0), 0) / results.length),
+            categoriesFound: [...new Set(results.map(c => c.category))],
+            matchedPatterns: results.slice(0, 3).map(c => c.category),
+            topCategory: results[0]?.category,
+            totalCourses: results.length
+          };
+          setInsights(insights);
+        }
+        
+        saveToHistory(searchQuery, searchType);
+      } else {
+        setResults([]);
+        setError(data.error || 'Search failed. Please try again.');
       }
-      
-      saveToHistory(searchQuery, searchType);
-    } else {
+    } catch (error) {
+      console.error('Search error:', error);
+      setError('Failed to connect to search backend. Please try again.');
       setResults([]);
-      setError(data.error || 'Search failed. Please try again.');
+    } finally {
+      setLoading(false);
     }
-  } catch (error) {
-    console.error('Search error:', error);
-    setError('Failed to connect to AI backend. Please check if port 5001 is running.');
-    setResults([]);
-  } finally {
-    setLoading(false);
-  }
-};
+  };
 
 
   // Handle quick search
@@ -618,6 +610,7 @@ const handleSearch = async (searchQuery = query) => {
         </div>
 
         {/* Footer */}
+        {/* Footer - Update the API Status button */}
         <div className="card-footer">
           <div className="row">
             <div className="col-md-8">
@@ -631,9 +624,19 @@ const handleSearch = async (searchQuery = query) => {
             </div>
             <div className="col-md-4 text-end">
               <small>
+                {/* ✅ Updated to check MongoDB backend health */}
                 <button 
                   className="btn btn-sm btn-outline-primary"
-                  onClick={() => window.open('http://localhost:5001/api/ai/test', '_blank')}
+                  onClick={async () => {
+                    try {
+                      const MONGO_BACKEND_URL = process.env.REACT_APP_MONGO_BACKEND_URL || 'http://localhost:5000';
+                      const response = await fetch(`${MONGO_BACKEND_URL}/api/search/health`);
+                      const data = await response.json();
+                      alert(`Search API Status: ${data.status || 'Unknown'}\nDatabase: ${data.database || 'Unknown'}`);
+                    } catch (error) {
+                      alert('Search API is unavailable');
+                    }
+                  }}
                 >
                   <i className="fas fa-external-link-alt me-1"></i>
                   API Status
