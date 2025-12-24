@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import ApiService from '../services/api';
-import config from './config';
 
-axios.get(`${config.apiBaseUrl}/api/schools`)
 const ApiTester = () => {
   const [results, setResults] = useState({});
   const [loading, setLoading] = useState(true);

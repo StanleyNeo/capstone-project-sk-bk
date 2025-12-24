@@ -1,9 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import ApiService from '../services/api'; // Add this import
 import './AIChatbot.css'; // We'll create this CSS
-import config from './config';
 
-axios.get(`${config.apiBaseUrl}/api/schools`)
 const AIChatbot = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [messages, setMessages] = useState([]);

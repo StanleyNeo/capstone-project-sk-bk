@@ -1,9 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import HybridApiService from '../services/HybridApiService';
 import './AdminAIDashboard.css';
-import config from './config';
 
-axios.get(`${config.apiBaseUrl}/api/schools`)
 const AdminAIDashboard = () => {
   const [stats, setStats] = useState(null);
   const [providers, setProviders] = useState([]);

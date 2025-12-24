@@ -1,7 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import config from './config';
 
-axios.get(`${config.apiBaseUrl}/api/schools`)
 function Chatbot() {
   const [messages, setMessages] = useState([
     { text: "Hello! I'm your AI Learning Assistant. How can I help you today?", sender: 'bot' }
