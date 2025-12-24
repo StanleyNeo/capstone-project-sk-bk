@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 const cors = require('cors');
 const app = express();
 const PORT = 5000;
-const mongoUri = process.env.MONGO_URI || "mongodb://127.0.0.1:27017/lms_analytics";
+const mongoUri = process.env.MONGODB_URI || process.env.MONGO_URI || "mongodb://127.0.0.1:27017/lms_analytics";
 
 // ========== ✅ MIDDLEWARE ==========
 app.use(cors({
@@ -15,21 +15,51 @@ app.use(cors({
 app.use(express.json());
 
 // ========== ✅ MONGODB CONNECTION ==========
-mongoose.connect(mongoUri, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-  serverSelectionTimeoutMS: 5000
-});
+let isMongoConnected = false;
 
+const connectToMongoDB = async () => {
+  try {
+    // Use MONGODB_URI for MongoDB Atlas (common on Render)
+    const mongoUri = process.env.MONGODB_URI || process.env.MONGO_URI || "mongodb://localhost:27017/lms_analytics";
+    
+    console.log(`🔗 Attempting MongoDB connection...`);
+    
+    await mongoose.connect(mongoUri, {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+      serverSelectionTimeoutMS: 10000, // Increased timeout
+      socketTimeoutMS: 45000,
+    });
+    
+    isMongoConnected = true;
+    console.log(`✅ MongoDB connected successfully to: ${mongoUri.includes('mongodb+srv') ? 'MongoDB Atlas' : 'Local MongoDB'}`);
+    
+  } catch (error) {
+    console.log(`⚠️ MongoDB connection failed: ${error.message}`);
+    console.log('⚠️ Using in-memory data mode');
+    isMongoConnected = false;
+  }
+};
+
+// Connect immediately
+connectToMongoDB();
+
+// Update db events
 const db = mongoose.connection;
 
 db.on('error', (err) => {
-  console.log('⚠️ MongoDB connection failed:', err.message);
-  console.log('⚠️ Using in-memory data instead');
+  console.log('MongoDB connection error:', err.message);
+  isMongoConnected = false;
 });
 
-db.once('open', () => {
-  console.log(`✅ MongoDB connected to ${mongoUri}`);
+db.on('disconnected', () => {
+  console.log('MongoDB disconnected');
+  isMongoConnected = false;
+});
+
+db.on('reconnected', () => {
+  console.log('MongoDB reconnected');
+  isMongoConnected = true;
 });
 
 // ========== ✅ SCHEMAS ==========
