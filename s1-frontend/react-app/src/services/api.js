@@ -83,7 +83,10 @@ static async getCourses() {
 // Get AI recommendations
 static async getAiRecommendations(interest, level) {
   try {
-    const response = await fetch('http://localhost:5001/api/ai/recommend', {
+    // Add this line:
+    const AI_BACKEND_URL = process.env.REACT_APP_AI_BACKEND_URL || 'http://localhost:5001';
+    
+    const response = await fetch(`${AI_BACKEND_URL}/api/ai/recommend`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

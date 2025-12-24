@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import ApiService from '../services/api'; // Add this import
 import './AIChatbot.css'; // We'll create this CSS
+const AI_BACKEND_URL = process.env.REACT_APP_AI_BACKEND_URL || 'http://localhost:5001';
 
 const AIChatbot = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -252,7 +253,8 @@ const sendToAI = async (messageText, searchResults = []) => {
   try {
     console.log(`📤 Sending to AI Backend: ${messageText} (provider: ${aiProvider})`);
     
-    const response = await fetch('http://localhost:5001/api/ai/chat', {
+    const AI_BACKEND_URL = process.env.REACT_APP_AI_BACKEND_URL || 'http://localhost:5001';
+const response = await fetch(`${AI_BACKEND_URL}/api/hybrid-ai/chat`, {
       method: 'POST',
       headers: { 
         'Content-Type': 'application/json',
@@ -365,7 +367,8 @@ const testAIConnection = async () => {
     setMessages(prev => [...prev, testMessage]);
 
     // Test actual AI response
-    const response = await fetch('http://localhost:5001/api/ai/chat', {
+    const AI_BACKEND_URL = process.env.REACT_APP_AI_BACKEND_URL || 'http://localhost:5001';
+const response = await fetch(`${AI_BACKEND_URL}/api/chat`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ 
