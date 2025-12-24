@@ -1,0 +1,56 @@
+[{
+  "_id": {
+    "$oid": "68ea31d48a14e4c387444880"
+  },
+  "id": 101,
+  "name": "Alicia Tan",
+  "email": "alicia@studentmail.edu",
+  "program": "Computer Science",
+},
+{
+  "_id": {
+    "$oid": "68ea31d48a14e4c387444881"
+  },
+  "id": 102,
+  "name": "Rajesh Kumar",
+  "email": "rajesh.kumar@studentmail.edu",
+  "program": "Mechanical Engineering",
+},
+{
+  "_id": {
+    "$oid": "68ea31d48a14e4c387444882"
+  },
+  "id": 103,
+  "name": "Chloe Lim",
+  "email": "chloe.lim@studentmail.edu",
+  "program": "Business Administration",
+},
+{
+  "_id": {
+    "$oid": "68ea31d48a14e4c387444883"
+  },
+  "id": 104,
+  "name": "Marcus Ong",
+  "email": "marcus.ong@studentmail.edu",
+  "program": "Information Systems",
+},
+{
+  "_id": {
+    "$oid": "68ea31d48a14e4c387444884"
+  },
+  "id": 105,
+  "name": "Siti Nur Aisyah",
+  "email": "siti.aisyah@studentmail.edu",
+  "program": "Data Analytics",
+},
+{
+  "_id": {
+    "$oid": "68ea5f18b07824ac5ede1a60"
+  },
+  "id": 106,
+  "name": "Test Student",
+  "email": "test.student@studentmail.edu",
+  "program": "Software Engineering",
+  "createdAt": {
+}
+}]

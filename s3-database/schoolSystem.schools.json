@@ -1,0 +1,24 @@
+[{
+  "_id": {
+    "$oid": "6842a0c5692d4d1044fca193"
+  },
+  "name": "Greenwood High School",
+  "address": "123 Maple Street, Springfield",
+  "principal": "Mr. John Adams"
+},
+{
+  "_id": {
+    "$oid": "665f1fa4a7d3f1a0aabc1002"
+  },
+  "name": "Riverside Public School",
+  "address": "456 Oak Avenue, Riverdale",
+  "principal": "Ms. Linda Carter"
+},
+{
+  "_id": {
+    "$oid": "69441c00b6436b548be58f33"
+  },
+  "name": "Sunset Valley Academy",
+  "address": "789 Pine Road, Sunset City",
+  "principal": "Dr. Sarah Mitchell"
+}]

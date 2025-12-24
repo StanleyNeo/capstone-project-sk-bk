@@ -1,0 +1,122 @@
+# Setup React App
+cd S1-FRONTEND/React-App
+npm install
+npm start
+
+# Setup Express Backend
+cd ../../S2-BACKEND
+npm install
+npm start
+
+# Setup MongoDB Backend
+cd S3-DATABASE/MongoDB-Backend
+npm install
+npm start
+
+
+
+Terminal 1 - MongoDB Backend: bash
+cd cg-capstone-project/capstone-project-sk
+cd qw-capstone-project/capstone-project-sk
+cd s3-database/MongoDB-Backend
+node final-server.js
+npm start
+
+Terminal 2 - Express Backend: bash
+cd cg-capstone-project/capstone-project-sk
+cd qw-capstone-project/capstone-project-sk
+cd s2-backend
+node final-ai-server.js
+npm start
+
+Terminal 3 - React Frontend: bash
+cd cg-capstone-project/capstone-project-sk
+cd qw-capstone-project/capstone-project-sk
+cd s1-frontend/react-app
+npm start
+
+
+https://platform.openai.com/api-keys
+
+https://aistudio.google.com/app/api-keys
+
+https://platform.deepseek.com/usage
+
+https://platform.deepseek.com/api_keys
+
+
+# 4. Commit and push
+git add .
+git commit -m "    "
+git push origin main
+
+Terminal 1 - MongoDB Backend:
+cd capstone-2025/qw-capstone-project/capstone-project-sk-bk
+cd s3-database/MongoDB-Backend
+node final-server.js
+
+Terminal 2 - Express Backend:
+cd capstone-2025/qw-capstone-project/capstone-project-sk-bk
+cd s2-backend
+node final-ai-server.js
+
+Terminal 3 - React Frontend:
+cd capstone-2025/qw-capstone-project/capstone-project-sk-bk
+cd s1-frontend/react-app
+npm start
+
+tree /f > project-structure.txt
+
+tree /f | findstr /v node_modules > project-structure2.txt
+
+
+
+tree /f | findstr /v /i "node_modules package-lock.json" > project-structure.txt
+
+
+git remote set-url origin https://github.com/StanleyNeo/capstone-project-sk
+
+cd s2-backend/routes
+mv hybridAiRoutes.js hybridAIRoutes.js
+
+git add .
+git commit -m "Fix case sensitivity for hybridAiRoutes"
+git push origin main
+
+https://vercel.com/neo-see-kwees-projects/capstone-project-sk-bk/settings
+
+Step 1: Update Vercel Settings
+Go to: https://vercel.com/your-username/capstone-project-sk-bk/settings
+
+Update these exact values:
+
+Setting	Correct Value	Wrong Value (to avoid)
+
+Framework Preset	Create React App	Other
+
+Root Directory	s1-frontend/react-app	./ or ./s1-frontend/react-app
+
+Build Command	npm run build	cd s1-frontend/react-app && npm run build
+
+Output Directory	build	s1-frontend/react-app/build
+
+Install Command	npm install	cd s1-frontend/react-app && npm install
+
+Save and redeploy.
+
+Step 2: Check Environment Variables in Vercel
+In Vercel dashboard → Environment Variables, make sure you have:
+
+
+REACT_APP_API_BASE_URL=https://ai-lms-ai.onrender.com
+REACT_APP_REACT_APP_API_BASE_URL=https://ai-lms-analytics.onrender.com
+REACT_APP_ENVIRONMENT=production
+
+
+Push Latest Changes to GitHub
+git add .
+git commit -m "AIFeatures.js - Fix hardcoded API health check"
+git push origin main
+
+
+

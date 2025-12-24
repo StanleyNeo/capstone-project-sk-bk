@@ -1,0 +1,17 @@
+{
+  "builds": [
+    {
+      "src": "s1-frontend/react-app/package.json",
+      "use": "@vercel/static-build",
+      "config": {
+        "distDir": "build"
+      }
+    }
+  ],
+  "routes": [
+    {
+      "src": "/(.*)",
+      "dest": "s1-frontend/react-app/build/$1"
+    }
+  ]
+}

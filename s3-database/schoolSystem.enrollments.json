@@ -1,0 +1,36 @@
+[{
+  "_id": {
+    "$oid": "665f1fa4a7d3f1a0aabc3002"
+  },
+  "studentName": "Bob Williams",
+  "courseId": {
+    "$oid": "665f1fa4a7d3f1a0aabc2003"
+  },
+  "enrollmentDate": {
+    "$date": "2025-06-04T00:00:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "665f1fa4a7d3f1a0aabc3001"
+  },
+  "studentName": "Alice Johnson",
+  "courseId": {
+    "$oid": "665f1fa4a7d3f1a0aabc2001"
+  },
+  "enrollmentDate": {
+    "$date": "2025-06-01T00:00:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "69441c05b6436b548be58f37"
+  },
+  "studentName": "Charlie Brown",
+  "courseId": {
+    "$oid": "665f1fa4a7d3f1a0aabc2001"
+  },
+  "enrollmentDate": {
+    "$date": "2025-12-18T15:21:41.146Z"
+  }
+}]

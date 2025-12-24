@@ -1,0 +1,40 @@
+[{
+  "_id": {
+    "$oid": "665f1fa4a7d3f1a0aabc2001"
+  },
+  "name": "Mathematics",
+  "description": "Algebra, Geometry and Trigonometry",
+  "schoolId": {
+    "$oid": "665f1fa4a7d3f1a0aabc1001"
+  }
+},
+{
+  "_id": {
+    "$oid": "665f1fa4a7d3f1a0aabc2002"
+  },
+  "name": "Biology",
+  "description": "Study of living organisms",
+  "schoolId": {
+    "$oid": "665f1fa4a7d3f1a0aabc1001"
+  }
+},
+{
+  "_id": {
+    "$oid": "665f1fa4a7d3f1a0aabc2003"
+  },
+  "name": "History",
+  "description": "World and Indian history overview",
+  "schoolId": {
+    "$oid": "665f1fa4a7d3f1a0aabc1002"
+  }
+},
+{
+  "_id": {
+    "$oid": "69441c02b6436b548be58f35"
+  },
+  "name": "Physics",
+  "description": "Classical and modern physics",
+  "schoolId": {
+    "$oid": "6842a8c5692d4d1044fca193"
+  }
+}]

@@ -1,0 +1,115 @@
+Folder PATH listing for volume Data
+Volume serial number is 3011-2A79
+D:.
+¦   .gitignore
+¦   .hintrc
+¦   learning-react.jpg
+¦   project-structure.txt
+¦   quick-start.bat
+¦   quick-start.txt
+¦   
++---.vscode
+¦       settings.json
+¦       
++---s1-frontend
+¦   +---html-css-bootstrap
+¦   ¦       Capstone_Section1_HTML_YourLastName.html
+¦   ¦       
+¦   +---javascript
+¦   ¦       Capstone_Section1_JS_YourLastName.html
+¦   ¦       
+¦   +---react-app
+¦       ¦   .env
+¦       ¦   package.json
+¦       ¦   
+¦       ¦   ¦   .env
+¦       ¦   ¦   
+¦       ¦   ¦           
+¦       ¦   +---images
+¦       ¦           ai-course.jpg
+¦       ¦           data-science.jpg
+¦       ¦           python-course.jpg
+¦       ¦           react-cource.jpg
+¦       ¦           
+¦       +---src
+¦           ¦   App.js
+¦           ¦   Courses.css
+¦           ¦   index.css
+¦           ¦   index.js
+¦           ¦   
+¦           +---components
+¦           ¦       AdminAIDashboard.css
+¦           ¦       AdminAIDashboard.js
+¦           ¦       AIChatbot.css
+¦           ¦       AIChatbot.js
+¦           ¦       ApiTester.js
+¦           ¦       Chatbot.js
+¦           ¦       CourseToggle.js
+¦           ¦       DatabaseStats.js
+¦           ¦       Diagnostic.js
+¦           ¦       PasswordStrength.js
+¦           ¦       ResponseDebug.js
+¦           ¦       SmartSearch.css
+¦           ¦       SmartSearch.js
+¦           ¦       
+¦           +---contexts
+¦           ¦       AIProviderContext.js
+¦           ¦       AuthContext.js
+¦           ¦       DataContext.js
+¦           ¦       
+¦           +---pages
+¦           ¦       AdminDashboard.js
+¦           ¦       AIFeatures.js
+¦           ¦       Chatbot.js
+¦           ¦       Courses.js
+¦           ¦       Dashboard.js
+¦           ¦       Home.js
+¦           ¦       Login.js
+¦           ¦       Schools.js
+¦           ¦       SearchTest.js
+¦           ¦       
+¦           +---services
+¦                   api.js
+¦                   
++---s2-backend
+¦   ¦   .env
+¦   ¦   final-ai-server.js
+¦   ¦   package.json
+¦   ¦   README.md
+¦   ¦   server.js
+¦   ¦   
+¦   +---data
+¦   +---models
+¦   ¦       userModel.js
+¦   ¦               
+¦   +---routes
+¦   ¦       aiChat.js
+¦   ¦       chatbotRoutes.js
+¦   ¦       hybridAiRoutes.js
+¦   ¦       openaiRoutes.js
+¦   ¦       recommendationRoutes.js
+¦   ¦       
+¦   +---services
+¦           FinalAIService.js
+¦           HybridAIService.js
+¦           OpenAIService.js
+¦           
++---s3-database
+    ¦   schoolSystem.courses.json
+    ¦   schoolSystem.enrollments.json
+    ¦   schoolSystem.schools.json
+    ¦   schoolSystem.students.json
+    ¦   
+    +---MongoDB-Backend
+        ¦   final-server.js
+        ¦   package.json
+        ¦   server.js
+        ¦   
+        +---models
+        ¦       courseModel.js
+        ¦       enrollmentModel.js
+        ¦       schoolModel.js
+        ¦       userModel.js
+ 
+          
+                        
