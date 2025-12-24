@@ -1,11 +1,11 @@
-const COURSES_API_URL = 'http://localhost:5001';  // AI LMS Backend
-const SCHOOLS_API_URL = 'http://localhost:5000';  // MongoDB Analytics Backend
+const AI_BACKEND_URL = process.env.REACT_APP_AI_BACKEND_URL || 'http://localhost:5001';
+const MONGO_BACKEND_URL = process.env.REACT_APP_MONGO_BACKEND_URL || 'http://localhost:5000';
 const API_BASE = 'http://localhost:5000/api';
 class ApiService {
   // ========== AUTHENTICATION (Port 5001) ==========
   static async register(userData) {
     try {
-      const response = await fetch(`${COURSES_API_URL}/api/register`, {
+      const response = await fetch(`${AI_BACKEND_URL}/api/register`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(userData)
@@ -19,7 +19,7 @@ class ApiService {
 
   static async login(credentials) {
     try {
-      const response = await fetch(`${COURSES_API_URL}/api/login`, {
+      const response = await fetch(`${AI_BACKEND_URL}/api/login`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(credentials)
@@ -45,7 +45,7 @@ static async quickHealthCheck() {
 static async getCourses() {
   try {
     // ❌ WRONG: Uses Port 5001 (AI server doesn't have courses)
-    const response = await fetch(`${COURSES_API_URL}/api/ai`);
+    const response = await fetch(`${AI_BACKEND_URL}/api/ai`);
     const data = await response.json();
     return data.success ? data.data || data.courses : [];
   } catch (error) {
@@ -56,7 +56,7 @@ static async getCourses() {
 
   static async getCourseById(id) {
     try {
-      const response = await fetch(`${COURSES_API_URL}/courses/${id}`);
+      const response = await fetch(`${AI_BACKEND_URL}/courses/${id}`);
       const data = await response.json();
       return data.success ? data.data : null;
     } catch (error) {
@@ -67,7 +67,7 @@ static async getCourses() {
 
   static async enrollCourse(userId, courseId) {
     try {
-      const response = await fetch(`${COURSES_API_URL}/enroll`, {
+      const response = await fetch(`${AI_BACKEND_URL}/enroll`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ userId, courseId })
@@ -191,7 +191,7 @@ static getFallbackRecommendations(interest, level) {
   // AI Chat - USE PORT 5001 for AI
   static async sendChatMessage(message) {
     try {
-      const response = await fetch(`${COURSES_API_URL}/api/hybrid-ai/chat`, {
+      const response = await fetch(`${AI_BACKEND_URL}/api/hybrid-ai/chat`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ message })
@@ -219,7 +219,7 @@ static async checkHealth() {
 
   static async getAiProviders() {
     try {
-      const response = await fetch(`${COURSES_API_URL}/api/hybrid-ai/providers`);
+      const response = await fetch(`${AI_BACKEND_URL}/api/hybrid-ai/providers`);
       return await response.json();
     } catch (error) {
       console.error('AI Providers error:', error);
@@ -230,7 +230,7 @@ static async checkHealth() {
   // ========== ANALYTICS & SEARCH (Port 5000) ==========
 static async getStats() {
   try {
-    const response = await fetch(`${SCHOOLS_API_URL}/api/stats`);
+    const response = await fetch(`${MONGO_BACKEND_URL}/api/stats`);
     return await response.json(); // Returns { success: true, data: { ... } }
   } catch (error) {
     console.error('Stats error:', error);
@@ -240,7 +240,7 @@ static async getStats() {
 
 static async getAnalyticsSummary() {
   try {
-    const response = await fetch(`${SCHOOLS_API_URL}/api/analytics/summary`, {
+    const response = await fetch(`${MONGO_BACKEND_URL}/api/analytics/summary`, {
       mode: 'cors', // Add this
       headers: {
         'Content-Type': 'application/json',
@@ -257,7 +257,7 @@ static async getAnalyticsSummary() {
 
   static async getAnalyticsDashboard() {
     try {
-      const response = await fetch(`${SCHOOLS_API_URL}/api/analytics/dashboard`);
+      const response = await fetch(`${MONGO_BACKEND_URL}/api/analytics/dashboard`);
       return await response.json();
     } catch (error) {
       console.error('Dashboard error:', error);
@@ -268,7 +268,7 @@ static async getAnalyticsSummary() {
   // ========== SEARCH (Port 5000) - CORRECTED ==========
   static async searchCourses(query) {
     try {
-      const response = await fetch(`${SCHOOLS_API_URL}/api/search/courses?q=${encodeURIComponent(query)}`);
+      const response = await fetch(`${MONGO_BACKEND_URL}/api/search/courses?q=${encodeURIComponent(query)}`);
       return await response.json();
     } catch (error) {
       console.error('Search error:', error);
@@ -278,7 +278,7 @@ static async getAnalyticsSummary() {
 
   static async getSearchHealth() {
     try {
-      const response = await fetch(`${SCHOOLS_API_URL}/api/search/health`);
+      const response = await fetch(`${MONGO_BACKEND_URL}/api/search/health`);
       return await response.json();
     } catch (error) {
       console.error('Search health error:', error);
@@ -289,7 +289,7 @@ static async getAnalyticsSummary() {
   // ========== USERS & ENROLLMENTS (Port 5000) ==========
   static async getUsers() {
     try {
-      const response = await fetch(`${SCHOOLS_API_URL}/api/users`);
+      const response = await fetch(`${MONGO_BACKEND_URL}/api/users`);
       return await response.json();
     } catch (error) {
       console.error('Users error:', error);
@@ -300,7 +300,7 @@ static async getAnalyticsSummary() {
 static async getUserEnrollments(userId) {
   try {
     // First, get all enrollments
-    const response = await fetch(`${SCHOOLS_API_URL}/api/enrollments`);
+    const response = await fetch(`${MONGO_BACKEND_URL}/api/enrollments`);
     const data = await response.json();
     
     console.log('All enrollments fetched:', data);
@@ -328,7 +328,7 @@ static async getUserEnrollments(userId) {
 
   static async getUserStats(userId) {
     try {
-      const response = await fetch(`${SCHOOLS_API_URL}/api/users/${userId}/stats`);
+      const response = await fetch(`${MONGO_BACKEND_URL}/api/users/${userId}/stats`);
       return await response.json();
     } catch (error) {
       console.error('User stats error:', error);
@@ -338,7 +338,7 @@ static async getUserEnrollments(userId) {
 
   static async getEnrollments() {
     try {
-      const response = await fetch(`${SCHOOLS_API_URL}/api/enrollments`);
+      const response = await fetch(`${MONGO_BACKEND_URL}/api/enrollments`);
       return await response.json();
     } catch (error) {
       console.error('Enrollments error:', error);
@@ -349,7 +349,7 @@ static async getUserEnrollments(userId) {
   // ========== COURSES DETAILS (Port 5000) ==========
 static async getCoursesFromAnalytics() {
   try {
-    const response = await fetch(`${SCHOOLS_API_URL}/api/courses`);
+    const response = await fetch(`${MONGO_BACKEND_URL}/api/courses`);
     const data = await response.json();
     
     console.log('Courses from analytics:', data);
@@ -371,7 +371,7 @@ static async getCoursesFromAnalytics() {
 
   static async getCourseDetails(courseId) {
     try {
-      const response = await fetch(`${SCHOOLS_API_URL}/api/courses/${courseId}`);
+      const response = await fetch(`${MONGO_BACKEND_URL}/api/courses/${courseId}`);
       return await response.json();
     } catch (error) {
       console.error('Course details error:', error);
@@ -381,7 +381,7 @@ static async getCoursesFromAnalytics() {
 
   static async getCourseEnrollmentStats(courseId) {
     try {
-      const response = await fetch(`${SCHOOLS_API_URL}/api/courses/${courseId}/enrollments`);
+      const response = await fetch(`${MONGO_BACKEND_URL}/api/courses/${courseId}/enrollments`);
       return await response.json();
     } catch (error) {
       console.error('Course stats error:', error);
@@ -392,7 +392,7 @@ static async getCoursesFromAnalytics() {
   // // ========== SCHOOLS (Port 5000) ==========
   // static async getSchools() {
   //   try {
-  //     const response = await fetch(`${SCHOOLS_API_URL}/api/schools`);
+  //     const response = await fetch(`${MONGO_BACKEND_URL}/api/schools`);
   //     const data = await response.json();
   //     return data.success ? data.data : [];
   //   } catch (error) {
@@ -404,7 +404,7 @@ static async getCoursesFromAnalytics() {
   // ========== HEALTH CHECKS ==========
   static async checkCoursesBackend() {
     try {
-      const response = await fetch(`${COURSES_API_URL}/health`);
+      const response = await fetch(`${AI_BACKEND_URL}/health`);
       return await response.json();
     } catch (error) {
       return { success: false, status: 'unavailable' };
@@ -413,7 +413,7 @@ static async getCoursesFromAnalytics() {
 
   static async checkAnalyticsBackend() {
     try {
-      const response = await fetch(`${SCHOOLS_API_URL}/health`);
+      const response = await fetch(`${MONGO_BACKEND_URL}/health`);
       return await response.json();
     } catch (error) {
       return { success: false, status: 'unavailable' };
@@ -426,7 +426,7 @@ static async getCoursesFromAnalytics() {
     
     // Test Port 5001 (AI Backend)
     try {
-      const response = await fetch(`${COURSES_API_URL}/`);
+      const response = await fetch(`${AI_BACKEND_URL}/`);
       results.coursesBackend = response.ok;
     } catch {
       results.coursesBackend = false;
@@ -434,7 +434,7 @@ static async getCoursesFromAnalytics() {
     
     // Test Port 5000 (Analytics Backend)
     try {
-      const response = await fetch(`${SCHOOLS_API_URL}/`);
+      const response = await fetch(`${MONGO_BACKEND_URL}/`);
       results.analyticsBackend = response.ok;
     } catch {
       results.analyticsBackend = false;
@@ -458,7 +458,7 @@ static async getCoursesFromAnalytics() {
 // ========== SCHOOLS (Port 5000) ==========
 static async getSchools() {
   try {
-    const response = await fetch(`${SCHOOLS_API_URL}/api/schools`);
+    const response = await fetch(`${MONGO_BACKEND_URL}/api/schools`);
     const data = await response.json();
     return data.success ? data.data : [];
   } catch (error) {
@@ -470,7 +470,7 @@ static async getSchools() {
 // ADD THIS METHOD:
 static async addSchool(schoolData) {
   try {
-    const response = await fetch(`${SCHOOLS_API_URL}/api/schools`, {
+    const response = await fetch(`${MONGO_BACKEND_URL}/api/schools`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(schoolData)
@@ -485,7 +485,7 @@ static async addSchool(schoolData) {
 // Also add these if you need them:
 static async updateSchool(id, schoolData) {
   try {
-    const response = await fetch(`${SCHOOLS_API_URL}/api/schools/${id}`, {
+    const response = await fetch(`${MONGO_BACKEND_URL}/api/schools/${id}`, {
       method: 'PUT',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(schoolData)
@@ -511,7 +511,7 @@ static async updateSchool(id, schoolData) {
 
 static async deleteSchool(id) {
   try {
-    const response = await fetch(`${SCHOOLS_API_URL}/api/schools/${id}`, {
+    const response = await fetch(`${MONGO_BACKEND_URL}/api/schools/${id}`, {
       method: 'DELETE'
     });
     return await response.json();
