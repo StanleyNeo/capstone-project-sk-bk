@@ -105,7 +105,7 @@ Output Directory	build	s1-frontend/react-app/build
 
 Install Command	npm install	cd s1-frontend/react-app && npm install
 
-Save and redeploy.
+Save and redeploy
 
 Step 2: Check Environment Variables in Vercel
 In Vercel dashboard → Environment Variables, make sure you have:
