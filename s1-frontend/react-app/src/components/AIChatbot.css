@@ -680,6 +680,70 @@
 
 }
 
+/* Full Page Chatbot Styles */
+.ai-chatbot-page {
+  min-height: 100vh;
+  background: var(--bg-primary);
+}
+
+.chat-header-full {
+  background: linear-gradient(135deg, var(--accent-color) 0%, #764ba2 100%);
+  color: white;
+  padding: 1rem 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.chat-avatar-large {
+  width: 60px;
+  height: 60px;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  backdrop-filter: blur(5px);
+}
+
+.avatar-icon-large {
+  font-size: 32px;
+}
+
+.chat-body-full {
+  height: 500px;
+  overflow-y: auto;
+  background: var(--bg-primary);
+}
+
+.chat-footer-full {
+  background: var(--bg-card);
+  border-top: 1px solid var(--border-color);
+  padding: 1.5rem;
+}
+
+/* Make sure chat input is larger on full page */
+.ai-chatbot-page .chat-input {
+  min-height: 60px;
+  font-size: 16px;
+}
+
+.ai-chatbot-page .send-btn {
+  width: 40px;
+  height: 40px;
+}
+
+/* Responsive adjustments */
+@media (max-width: 992px) {
+  .chat-body-full {
+    height: 400px;
+  }
+}
+
+@media (max-width: 768px) {
+  .chat-body-full {
+    height: 300px;
+  }
+}
+
 
 
 }
