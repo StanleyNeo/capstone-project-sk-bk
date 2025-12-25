@@ -104,7 +104,7 @@ function App() {
             <footer className="bg-light mt-5 py-3 border-top">
               <div className="container text-center">
                 <p className="mb-0 text-muted">
-                  AI-Powered Learning Management System © 2024
+                  AI-Powered Learning Management System © 2025
                 </p>
               </div>
             </footer>
