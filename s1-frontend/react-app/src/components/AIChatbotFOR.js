@@ -1,9 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import ApiService from '../services/api'; // Add this import
 import './AIChatbot.css'; // We'll create this CSS
-const AI_BACKEND_URL = process.env.REACT_APP_AI_BACKEND_URL || 'http://localhost:5001';
-const MONGO_BACKEND_URL = process.env.REACT_APP_MONGO_BACKEND_URL || 'http://localhost:5000';
-
 
 const AIChatbot = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -251,11 +248,11 @@ const errorMessage = {
   };
 
   // Send message to AI backend
-    const sendToAI = async (messageText, searchResults = []) => {
-      try {
-        console.log(`📤 Sending to AI Backend: ${messageText} (provider: ${aiProvider})`);
-        
-    const response = await fetch(`${AI_BACKEND_URL}/api/ai/chat`, {
+const sendToAI = async (messageText, searchResults = []) => {
+  try {
+    console.log(`📤 Sending to AI Backend: ${messageText} (provider: ${aiProvider})`);
+    
+    const response = await fetch('http://localhost:5001/api/ai/chat', {
       method: 'POST',
       headers: { 
         'Content-Type': 'application/json',
@@ -368,8 +365,7 @@ const testAIConnection = async () => {
     setMessages(prev => [...prev, testMessage]);
 
     // Test actual AI response
-    // 第二个调用 - 测试AI连接
-    const testResponse = await fetch(`${AI_BACKEND_URL}/api/ai/chat`, {
+    const response = await fetch('http://localhost:5001/api/ai/chat', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ 
