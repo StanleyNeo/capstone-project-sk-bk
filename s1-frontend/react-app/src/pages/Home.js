@@ -171,37 +171,6 @@ const handleGetRecommendation = async () => {
         </div>
       </div>
 
-      {/* Database Stats */}
-      <div className="row mt-4">
-        <div className="col-md-8">
-          <DatabaseStats />
-        </div>
-        <div className="col-md-4">
-          <SmartSearch />
-          
-          {/* Quick Stats Card */}
-          <div className="card shadow-sm mb-4">
-            <div className="card-body">
-              <h6 className="card-title">📈 Quick Stats</h6>
-              <div className="small">
-                <div className="d-flex justify-content-between mb-2">
-                  <span>Active Courses</span>
-                  <span className="text-primary">{stats.totalCourses}</span>
-                </div>
-                <div className="d-flex justify-content-between mb-2">
-                  <span>Total Users</span>
-                  <span className="text-success">{stats.activeStudents}</span>
-                </div>
-                <div className="d-flex justify-content-between">
-                  <span>Completion Rate</span>
-                  <span className="text-warning">{stats.completionRate}%</span>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
       {/* AI Recommendation Engine */}
       <div className="card mb-4">
         <div className="card-body">
@@ -266,6 +235,102 @@ const handleGetRecommendation = async () => {
           )}
         </div>
       </div>
+
+      {/* Database Stats */}
+      <div className="row mt-4">
+        <div className="col-md-8">
+          <DatabaseStats />
+        </div>
+        <div className="col-md-4">
+          <SmartSearch />
+          
+          {/* Quick Stats Card */}
+          <div className="card shadow-sm mb-4">
+            <div className="card-body">
+              <h6 className="card-title">📈 Quick Stats</h6>
+              <div className="small">
+                <div className="d-flex justify-content-between mb-2">
+                  <span>Active Courses</span>
+                  <span className="text-primary">{stats.totalCourses}</span>
+                </div>
+                <div className="d-flex justify-content-between mb-2">
+                  <span>Total Users</span>
+                  <span className="text-success">{stats.activeStudents}</span>
+                </div>
+                <div className="d-flex justify-content-between">
+                  <span>Completion Rate</span>
+                  <span className="text-warning">{stats.completionRate}%</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* AI Recommendation Engine */}
+      {/* <div className="card mb-4">
+        <div className="card-body">
+          <h3 className="card-title">AI Course Recommender</h3>
+          <p className="card-text">
+            Tell us your interests and we'll recommend the perfect course for you!
+          </p>
+          
+          <div className="row mb-3">
+            <div className="col-md-6">
+              <label className="form-label">What are you interested in?</label>
+              <input
+                type="text"
+                className="form-control"
+                placeholder="e.g., Web Development, AI, Data Science, Design"
+                value={interest}
+                onChange={(e) => setInterest(e.target.value)}
+              />
+            </div>
+            <div className="col-md-4">
+              <label className="form-label">Your Skill Level</label>
+              <select 
+                className="form-select"
+                value={level}
+                onChange={(e) => setLevel(e.target.value)}
+              >
+                <option value="beginner">Beginner</option>
+                <option value="intermediate">Intermediate</option>
+                <option value="advanced">Advanced</option>
+              </select>
+            </div>
+            <div className="col-md-2 d-flex align-items-end">
+              <button 
+                className="btn btn-primary w-100"
+                onClick={handleGetRecommendation}
+              >
+                Get Recommendations
+              </button>
+            </div>
+          </div>
+
+          {recommendation && (
+            <div className={`alert ${recommendation.recommendations?.length > 0 ? 'alert-info' : 'alert-warning'}`}>
+              <h5>AI Recommendations:</h5>
+              <p>{recommendation.message || "No recommendations available"}</p>
+              {recommendation.recommendations && recommendation.recommendations.length > 0 && (
+                <div className="row mt-3">
+                  {recommendation.recommendations.slice(0, 2).map(course => (
+                    <div className="col-md-6" key={course.id || course.courseId}>
+                      <div className="card">
+                        <div className="card-body">
+                          <h6>{course.name || course.title}</h6>
+                          <p className="small">{(course.description || '').substring(0, 100)}...</p>
+                          <span className="badge bg-primary">{course.level || 'Beginner'}</span>
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              )}
+            </div>
+          )}
+        </div>
+      </div> */}
 
       {/* Featured Courses */}
       {Array.isArray(courses) && courses.length > 0 ? (
