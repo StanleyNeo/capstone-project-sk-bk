@@ -4,9 +4,7 @@ const cors = require('cors');
 const app = express();
 const PORT = 5000;
 const mongoUri =
-  process.env.MONGODB_URI ||
-  process.env.MONGO_URI ||
-  'mongodb://127.0.0.1:27017/lms_analytics';
+  process.env.MONGODB_URI || 'mongodb://127.0.0.1:27017/lms_analytics';
 
 
 // ========== ✅ MIDDLEWARE ==========
@@ -46,7 +44,7 @@ let isMongoConnected = false;
 const connectToMongoDB = async () => {
   try {
     // Use MONGODB_URI for MongoDB Atlas (common on Render)
-    const mongoUri = process.env.MONGODB_URI || process.env.MONGO_URI || "mongodb://localhost:27017/lms_analytics";
+    const mongoUri = process.env.MONGODB_URI || "mongodb://localhost:27017/lms_analytics";
     
     console.log(`🔗 Attempting MongoDB connection...`);
     
