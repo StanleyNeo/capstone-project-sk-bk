@@ -3,7 +3,11 @@ const mongoose = require('mongoose');
 const cors = require('cors');
 const app = express();
 const PORT = 5000;
-const mongoUri = process.env.MONGODB_URI || process.env.MONGO_URI || "mongodb://127.0.0.1:27017/lms_analytics";
+const mongoUri =
+  process.env.MONGODB_URI ||
+  process.env.MONGO_URI ||
+  'mongodb://127.0.0.1:27017/lms_analytics';
+
 
 // ========== ✅ MIDDLEWARE ==========
 // Configure CORS dynamically for both development and production
