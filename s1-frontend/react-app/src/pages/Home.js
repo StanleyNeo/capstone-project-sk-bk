@@ -113,7 +113,7 @@ const handleGetRecommendation = async () => {
       <h1 className="mb-4 text-primary">AI-Powered Learning Management System</h1>
       
       {/* Backend Status Indicator */}
-      <div className="alert alert-info d-flex justify-content-between align-items-center">
+      {/* <div className="alert alert-info d-flex justify-content-between align-items-center">
         <div>
           <i className="fas fa-server me-2"></i>
           <strong>Backend Status:</strong>
@@ -127,7 +127,7 @@ const handleGetRecommendation = async () => {
         <button className="btn btn-sm btn-outline-primary" onClick={checkBackends}>
           <i className="fas fa-sync-alt"></i> Check
         </button>
-      </div>
+      </div> */}
 
       {isAuthenticated && currentUser && (
         <div className="alert alert-success">
@@ -300,7 +300,25 @@ const handleGetRecommendation = async () => {
           <CourseToggle />
         </div>
       </div>
+            {/* Backend Status Indicator */}
+      <div className="alert alert-info d-flex justify-content-between align-items-center">
+        <div>
+          <i className="fas fa-server me-2"></i>
+          <strong>Backend Status:</strong>
+          <span className={`ms-2 ${backendStatus.port5000 ? 'text-success' : 'text-warning'}`}>
+            Analytics: {backendStatus.port5000 ? '✅' : '⚠️'}
+          </span>
+          <span className={`ms-3 ${backendStatus.port5001 ? 'text-success' : 'text-warning'}`}>
+            AI/Courses: {backendStatus.port5001 ? '✅' : '⚠️'}
+          </span>
+        </div>
+        <button className="btn btn-sm btn-outline-primary" onClick={checkBackends}>
+          <i className="fas fa-sync-alt"></i> Check
+        </button>
+      </div>
     </div>
+
+    
   );
 }
 
